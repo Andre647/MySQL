@@ -1,0 +1,9 @@
+use sucos_vendas; /* database pré estabelecida */
+
+/* CONSULTAS DE VENDAS POR MES*/
+SELECT NF.CPF,date_format(DATA_VENDA, '%Y-%m') AS Mes_Ano,sum(INF.QUANTIDADE) AS TOTAL 
+FROM itens_notas_fiscais INF
+INNER JOIN notas_fiscais NF
+ON NF.NUMERO = INF.NUMERO
+GROUP BY CPF,date_format(DATA_VENDA, '%Y-%m')
+ORDER BY CPF;
