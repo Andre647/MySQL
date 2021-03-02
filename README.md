@@ -1,2 +1,2 @@
-# SQL_with_MySQL
+# MySQL
 Aprendendo a usar o git enquanto armazeno code em SQL
