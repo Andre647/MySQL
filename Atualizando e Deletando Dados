@@ -1,0 +1,34 @@
+UPDATE produtos SET PRECO_LISTA = 5.0
+WHERE CODIGO = '1000889';
+
+UPDATE clientes SET ENDERECO= 'R. Jorge Emílio 23',BAIRRO = 'Santo Amaro',CIDADE = 'São Paulo',ESTADO = 'SP',CEP='8833223'
+WHERE CPF='19290992743';
+
+UPDATE produtos SET PRECO_LISTA = PRECO_LISTA * 1.10
+WHERE SABOR = 'Maracuja';
+
+SELECT * FROM VENDEDORES A
+INNER JOIN SUCOS_VENDAS.TABELA_DE_VENDEDORES B
+ON A.MATRICULA = substring(B.MATRICULA,3,3);
+
+UPDATE vendedores A 
+INNER JOIN sucos_vendas.TABELA_DE_VENDEDORES B
+ON A.MATRICULA = substring(B.MATRICULA,3,3)
+SET A.FERIAS = B.DE_FERIAS;
+
+UPDATE clientes C
+INNER JOIN vendedores V
+ON C.BAIRRO = V.BAIRRO
+SET C.VOLUME_COMPRA = C.VOLUME_COMPRA*1.30;
+
+/* -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+delete FROM produtos 
+where TAMANHO= '1 LITRO' AND substring(DESCRITOR,1,15) = 'Sabor dos Alpes';
+
+delete FROM produtos 
+where CODIGO NOT IN(SELECT CODIGO_DO_PRODUTO FROM sucos_vendas.tabela_de_produtos);
+
+delete N FROM NOTAS N
+INNER JOIN CLIENTES C
+ON N.CPF = C.CPF
+WHERE C.IDADE < 18;
