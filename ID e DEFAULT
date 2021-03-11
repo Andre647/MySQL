@@ -1,0 +1,7 @@
+CREATE TABLE TAB_PADRAO
+(ID INT AUTO_INCREMENT, /* cria auto incremento ID( indice ) */
+DESCRITOR VARCHAR(20),
+ENDERECO VARCHAR(100) NULL,
+CIDADE VARCHAR(50) DEFAULT 'Rio de Janeiro', /* valor default que ira aparecer caso voce não insira nada */
+DATA_CRIACAO TIMESTAMP DEFAULT CURRENT_TIMESTAMP(), /* MUITO USADO!!!!! */
+PRIMARY KEY(ID));
