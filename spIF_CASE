@@ -1,0 +1,52 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Comparativo_Vendas`(vData1 DATE,vData2 DATE)
+BEGIN
+
+DECLARE MENSAGEM VARCHAR(20);
+DECLARE vVariacaoPercentual FLOAT; /* (d1 - d2)*100/(d1+d2) */
+DECLARE TOTAL1 FLOAT;
+DECLARE TOTAL2 FLOAT;
+
+SELECT SUM(B.QUANTIDADE * B.PRECO)  AS TOTAL_VENDA INTO TOTAL1 FROM 
+NOTAS_FISCAIS A 
+INNER JOIN ITENS_NOTAS_FISCAIS B
+ON A.NUMERO = B.NUMERO
+WHERE A.DATA_VENDA = vData1;
+
+SELECT SUM(B.QUANTIDADE * B.PRECO)  AS TOTAL_VENDA INTO TOTAL2 FROM 
+NOTAS_FISCAIS A 
+INNER JOIN ITENS_NOTAS_FISCAIS B
+ON A.NUMERO = B.NUMERO
+WHERE A.DATA_VENDA = vData2;
+
+SET vVariacaoPercentual = ((TOTAL1-TOTAL2)/TOTAL1)*100;
+
+IF vVariacaoPercentual > 10 THEN 
+	SET MENSAGEM = 'VERDE';
+ELSEIF vVariacaoPercentual > -10.0 AND vVariacaoPercentual <= 10.0 THEN
+	SET MENSAGEM = 'AMARELA';
+ELSE
+	SET MENSAGEM = 'VERMELHA';
+END IF;
+SELECT vData1,vData2,vVariacaoPercentual,MENSAGEM;
+END
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+CREATE PROCEDURE `Comparativo_Vendas_Case_Cond`(DataInicial DATE, DataFinal DATE)
+BEGIN
+DECLARE FaturamentoInicial FLOAT;
+DECLARE FaturamentoFinal FLOAT;
+DECLARE Variacao float;
+SELECT SUM(B.QUANTIDADE * B.PRECO) INTO FaturamentoInicial FROM 
+NOTAS_FISCAIS A INNER JOIN ITENS_NOTAS_FISCAIS B
+ON A.NUMERO = B.NUMERO
+WHERE A.DATA_VENDA = DataInicial;
+SELECT SUM(B.QUANTIDADE * B.PRECO) INTO FaturamentoFinal FROM 
+NOTAS_FISCAIS A INNER JOIN ITENS_NOTAS_FISCAIS B
+ON A.NUMERO = B.NUMERO
+WHERE A.DATA_VENDA = DataFinal ;
+SET Variacao = ((FaturamentoFinal / FaturamentoInicial) -1) * 100; 
+CASE
+WHEN Variacao > 10 THEN SELECT 'Verde';
+WHEN Variacao > -10 AND Variacao < 10 THEN  SELECT 'Amarelo';
+WHEN Variacao <= -10 THEN SELECT 'Vermelho';
+END CASE;
+END
