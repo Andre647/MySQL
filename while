@@ -1,0 +1,15 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Soma_Dias_Notas`(dataInicial DATE,dataFinal DATE)
+BEGIN
+DECLARE vNotas INT;
+DROP TABLE notinhas;
+CREATE TABLE notinhas(dataAtual DATE,NOTAS INT);
+
+WHILE dataInicial <= dataFinal
+DO SELECT COUNT(*) INTO vNotas FROM notas_fiscais
+WHERE DATA_VENDA = dataInicial;
+SELECT ADDDATE(DATAINICIAL, INTERVAL 1 DAY) INTO DATAINICIAL;
+INSERT INTO notinhas(dataAtual,NOTAS)
+VALUES(dataInicial,vNotas);
+END WHILE;
+SELECT * FROM notinhas;
+END
