@@ -1,0 +1,20 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Limite_Creditos`()
+BEGIN
+DECLARE Total INT DEFAULT 0;
+DECLARE fimDoCursor int DEFAULT 0;
+DECLARE vCredito INT DEFAULT 0;
+DECLARE c cursor for SELECT LIMITE_DE_CREDITO FROM tabela_de_clientes ;
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET fimDoCursor = 1;
+OPEN c;
+WHILE fimDoCursor = 0
+DO
+	fetch c INTO vCredito;
+    IF fimDoCursor = 0 then
+		SET Total = Total + vCredito;
+        SELECT vCredito;
+        SELECT Total;
+	END IF;
+END WHILE;
+SELECT Total;
+CLOSE c;
+END
