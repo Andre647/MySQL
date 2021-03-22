@@ -1,0 +1,6 @@
+CREATE  FUNCTION `f_NumeroAleatorio`(min INT,max INT) RETURNS int
+BEGIN
+	DECLARE vRetorno INT;
+    SELECT FLOOR((RAND() * (max-min+1))+min) INTO vRetorno;
+RETURN vRetorno;
+END
