@@ -1,0 +1,21 @@
+/* FEITO PELO PROMPT DE COMANDO */
+
+C:\Users\André>cd\
+
+C:\>cd "Arquivos de Programas"
+
+C:\Arquivos de Programas>"My SQL"
+'"My SQL"' não é reconhecido como um comando interno
+ou externo, um programa operável ou um arquivo em lotes. /* ENTRANDO NO DOMINIO DO MYSQL PELO PROMPT */
+
+C:\Arquivos de Programas>cd "MySQL"
+
+C:\Arquivos de Programas\MySQL>cd "MySQL Server 8.0"
+
+C:\Arquivos de Programas\MySQL\MySQL Server 8.0>cd bin
+
+C:\Arquivos de Programas\MySQL\MySQL Server 8.0\bin>MySQL -uroot -p
+----------------------------------------------------------------------------------------------------------------------
+ALTER TABLE NOSTAS_FISCAIS ADD INDEX(DATA_VENDA);/* adiciona um indice para cada data que estamos analisando */
+EXPLAIN FORMAT = JSON SELECT * FROM NOTAS_FISCAIS WHERE DATA_VENDA = '20170101';/* comando que mostra a medida de custo de busca da query, nesse caso, muito baixa */
+ALTER TABLE NOTAS_FISCAIS DROP INDEX DATA_VENDA; /* APAGA O INDICE CRIADO */
