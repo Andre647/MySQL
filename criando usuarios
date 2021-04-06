@@ -1,0 +1,7 @@
+CREATE USER 'backup02'@'localhost' identified BY 'backup02';/* CRIANDO USUARIO EXEMPLO */
+GRANT SELECT,RELOAD,REPLICATION CLIENT,LOCK TABLES
+on *.* TO 'backup02'@'localhost';
+
+CREATE USER 'admingeneric02'@'%' identified BY 'admingeneric02'; /* CRIANDO ADM COM ACESSO A TUDO E PARA QUALQUER SERV(%) */
+GRANT ALL PRIVILEGES
+on *.* TO 'admingeneric02'@'%' WITH GRANT OPTION; /* *-* É O BANCO DE DADOS QUE ELE PODERÁ USAR, NESTE CASO, TODOS */
